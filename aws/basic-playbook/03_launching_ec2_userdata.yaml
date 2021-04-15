@@ -1,0 +1,22 @@
+---
+ - name: Launching aws ec2 instance
+   hosts: localhost
+   gather_facts: false
+   tasks:
+   - name: Launching ec2 instance
+     ec2:
+      instance_type: t2.micro
+      image: ami-042b34111b1289ccd
+      key_name: ansible-automation
+      region: ap-south-1
+      user_data: "{{ lookup('file', 'user-data.sh') }}"
+      wait: True
+      wait_timeout: 600
+
+
+# create user-data.sh and add anything that you would want to run during provisioning 
+# example is given below 
+
+#!/bin/bash
+apt-get update
+apt-get install -y git wget

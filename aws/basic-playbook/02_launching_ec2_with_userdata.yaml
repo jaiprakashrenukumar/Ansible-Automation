@@ -1,0 +1,17 @@
+---
+ - name: Launching aws ec2 instance
+   hosts: localhost
+   gather_facts: false
+   tasks:
+   - name: Launching ec2 instance
+     ec2:
+      instance_type: t2.micro
+      image: ami-042b34111b1289ccd
+      key_name: ansible-automation
+      region: ap-south-1
+      user_data: |
+               #!/bin/sh
+               sudo apt-get install nginx -y
+      wait: True
+      wait_timeout: 600
+
