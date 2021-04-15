@@ -1,0 +1,10 @@
+---
+ - name: Gather information about all instances
+   hosts: localhost
+   tasks:
+   - name: get details of all instances
+     ec2_instance_facts:
+       region: ap-south-1
+     register: out
+   - name: Displaying information of ec2 instances
+     debug: var=out
