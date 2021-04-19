@@ -1,0 +1,19 @@
+---
+ - name: Launching aws ec2 instance
+   hosts: localhost
+   gather_facts: false
+   tasks:
+   - name: Launching ec2 instance
+     ec2:
+      instance_type: t2.micro
+      image: ami-042b34111b1289ccd
+      key_name: ansible-automation
+      region: ap-south-1
+      wait: yes
+      instance_tags:
+        Env: UAT-TEST
+        Name: UAT-{{ 1000 | random(start=1)}}
+     register: ec2_out
+   - name: details
+     debug: var=ec2_out
+
