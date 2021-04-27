@@ -1,0 +1,21 @@
+---
+ - name: Launching aws ec2 instance
+   hosts: localhost
+   gather_facts: false
+   tasks:
+   - name: Launching ec2 instance
+     ec2:
+      instance_type: t2.micro
+      image: ami-042b34111b1289ccd
+      key_name: ansible-automation
+      region: ap-south-1
+      wait: yes
+      instance_tags:
+        Env: UAT-TEST
+        Name: UAT-{{ sname }}-{{ env_}}-{{ lookup('pipe','date +%s') }}
+     register: out
+   - name: details
+     template:
+       src: generate_csv.j2
+       dest: ec2_instance_info.csv
+
